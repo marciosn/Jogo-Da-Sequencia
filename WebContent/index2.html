@@ -1,0 +1,54 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="shortcut icon" href="./resources/images/favicon.ico">
+<link rel="icon" type="image/gif" href="./resources/images/animated_favicon1.gif">
+<title>Jogo da Sequência AngularJs</title>
+
+<link rel="stylesheet" type="text/css" href="./resources/css/navbar.css" />
+<link rel="stylesheet" type="text/css" href="./resources/css/style.css" />
+
+<!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script> -->
+<script src="//ajax.googleapis.com/ajax/libs/angularjs/1.3.8/angular.min.js"></script>
+</head>
+<body>
+<nav>
+  <ul>
+    <li><a href="#">Jogo Da Sequência</a></li>
+     <li><a href="index.html">Index</a></li>
+  </ul>
+</nav>
+	<fieldset>
+		<form action="http://localhost:8080/servicos/jogo/sequencia/jogar/" method="get" id="form1">
+		
+			<h5> Informe o intervalo dos números.</h5>
+			<input type="text" name="intervalo" id="intervalo" class="input" placeholder="1 Até ...."><br/><br/>
+			
+			<h5> Informe o tamanho da sequência.</h5>
+			<input type="text" name="jogada1" id="jogada" class="input" placeholder="Tamanho..."><br/><br/>
+			
+			<button class="confirm" type="submit" id="btn_enviar">Iniciar Jogo</button>		
+		</form>
+
+		<form action="http://localhost:8080/servicos/jogo/sequencia/jogar/" method="get" id="form2">
+			<!-- <h3>Informe a jogada!</h3> -->
+			<p id="header" align="center">Informe a jogada</p>
+			<br/>
+			<!-- <input type="text" name="jogada2" id="jogada2" class="input" placeholder="Informe a jogada..."><br/><br/> -->
+			<!-- <input type="submit" value="Limpar Sessão" id="limpar" class="confirm"> -->
+			<!-- <input type="submit" value="Ver dica" id="btn_enviar3" class="hint" onclick=""> -->
+		</form>
+		
+		<p id="dica" align="center"></p>
+		<p id="jogado" align="center"></p>
+		<p id="list" align="center"></p>
+				
+	</fieldset>
+	
+	<div id="botoes" class="teclado"></div>
+	
+</body>
+
+
+</html>
