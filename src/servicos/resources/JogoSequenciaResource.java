@@ -20,11 +20,7 @@ public class JogoSequenciaResource{
 	private JogoSequencia3 jogo;
 	@Context private HttpServletRequest request;
 	@Context private HttpServletResponse response;
-	private List<Integer> sequencia;
 	private HttpSession session;
-	private int count = 0;
-	private int count2 = 0;
-	private int tamanho = 0;
 	
 	public JogoSequenciaResource() {
 		jogo = new JogoSequencia3();
@@ -40,16 +36,8 @@ public class JogoSequenciaResource{
 	@GET
 	@Path("/limpar")
 	public String limpaSesso(){
-		session = request.getSession(true);
-		/*try {
-			session.setAttribute("jogadas", "");
-		} catch (NullPointerException e) {
-			System.out.println("Limpar " + e.toString());
-		}*/
-		
+		session = request.getSession(true);		
 		return jogo.limpaSesso(session, request);
-		
-		//return "Sessão Limpa";
 	}
 
 	@GET
@@ -57,87 +45,23 @@ public class JogoSequenciaResource{
 	@Produces("application/json")
 	public String criaSequencia(@PathParam("intervalo") int intervalo, @PathParam("tamanho") int tamanho){
 		session = request.getSession(true);
-		
-		/*sequencia = jogo.geraSequenciaInteger(intervalo, tamanho);
-		session.setAttribute("lista", sequencia);
-		session.setAttribute("count", count);
-		session.setAttribute("count2", 1);
-		session.setAttribute("tamanho", tamanho);
-		
-		return sequencia.toString();*/
-		
 		return jogo.criaSequencia(session, request, intervalo, tamanho);
 	}
 	
-	@SuppressWarnings("unchecked")
 	@GET
 	@Path("/jogar")
 	@Produces("text/plain")
 	public String pegarDica(){
 		session = request.getSession(true);
-		/*String dica = "";
-		session = request.getSession(true);
-		sequencia = (List<Integer>) session.getAttribute("lista");
-		count = (int) session.getAttribute("count");
-		try {
-
-			dica = "Entrada esperada: "+jogo.getSequenciaDaVez(count, sequencia).toString();
-			
-		} catch (IndexOutOfBoundsException e) {
-			System.out.println("pegarDica " + e.toString());
-		}
-		
-		return dica;*/
-		
 		return jogo.pegarDica(session, request);
 	}
 	
-	@SuppressWarnings("unchecked")
 	@GET
 	@Path("/jogar/{jogada}")
 	@Produces("text/plain")
 	public String verificaJogada(@PathParam("jogada") String jogada){
 		session = request.getSession(true);
 		return jogo.verificaJogada(session, request, jogada);
-		/*String result = "verifica";
-		try {
-			
-			tamanho = (int) session.getAttribute("tamanho");
-			sequencia = (List<Integer>) session.getAttribute("lista");
-			count = (int) session.getAttribute("count");
-			count2 = (int) session.getAttribute("count2");
-			
-			if(jogo.verificaJogada(jogada, sequencia.get(count))){
-					result = "Acertou";							
-					session.setAttribute("count", count  + 1);
-					
-					count = (int) session.getAttribute("count");
-					count2 = (int) session.getAttribute("count2");
-					
-					if(count == count2){
-						session.setAttribute("count", 0);
-						session.setAttribute("count2", count2  + 1);
-					}
-					
-			}else{
-					result = "Errou";
-					session.setAttribute("count", 0);
-					session.setAttribute("count2", 0);
-			}	
-		
-			if(count == tamanho){
-				session.setAttribute("count", 0);
-				session.setAttribute("count2", 0);
-				return "Venceu";	
-			}
-				
-		} catch (NullPointerException e) {
-			System.out.println("verificaJogada "+e.toString());
-		}catch (IndexOutOfBoundsException e) {
-			System.out.println("verificaJogada "+e.toString());
-		}
-
-		return result;*/
 	}
 	
 }
