@@ -25,7 +25,7 @@ public class JogoSequenciaResource{
 	private int count = 0;
 	private int count2 = 0;
 	private int tamanho = 0;
-	private int contadorDeTamanho = 0;
+	
 	public JogoSequenciaResource() {
 		jogo = new JogoSequencia3();
 	}
@@ -59,8 +59,6 @@ public class JogoSequenciaResource{
 		session.setAttribute("count", count);
 		session.setAttribute("count2", 1);
 		session.setAttribute("tamanho", tamanho);
-		session.setAttribute("contador", contadorDeTamanho);
-		session.setAttribute("jogadas", "");
 		return sequencia.toString();
 	}
 	
@@ -73,7 +71,6 @@ public class JogoSequenciaResource{
 		session = request.getSession(true);
 		sequencia = (List<Integer>) session.getAttribute("lista");
 		count = (int) session.getAttribute("count");
-		count2 = (int) session.getAttribute("count2");
 		try {
 
 			dica = "Entrada esperada: "+jogo.getSequenciaDaVez(count, sequencia).toString();
@@ -84,45 +81,27 @@ public class JogoSequenciaResource{
 		
 		return dica;
 	}
-
-	/**
-	 * 
-	 * para que o jogo funcione de maneira correta é necessário capturar o valor de count2, pois ele representa
-	 * o tamanho da sequencia q deve ser digitada, o count é incrementado ate que ele seja igual ao count2,
-	 * quando isso acontecer, o count deve ser zerado e o count2 incrementando em mais um.
-	 * 
-	 * **/
+	
 	@SuppressWarnings("unchecked")
 	@GET
 	@Path("/jogar/{jogada}")
 	@Produces("text/plain")
 	public String verificaJogada(@PathParam("jogada") String jogada){
+		session = request.getSession(true);
 		String result = "verifica";
-		String ListJogadas;
 		try {
-			session = request.getSession(true);
+			
 			tamanho = (int) session.getAttribute("tamanho");
-			result = (String) session.getAttribute("jogadas");
-			ListJogadas = jogo.getSequenceListString(result, jogada);
-			session.setAttribute("jogadas", ListJogadas);
 			sequencia = (List<Integer>) session.getAttribute("lista");
 			count = (int) session.getAttribute("count");
 			count2 = (int) session.getAttribute("count2");
 			
-			System.out.println("================================================");
-			System.out.println("count2: " + count2 + " ============");
-			
-			
 			if(jogo.verificaJogada(jogada, sequencia.get(count))){
 					result = "Acertou";							
-					//session.setAttribute("count2", count2  + 1);
 					session.setAttribute("count", count  + 1);
 					
 					count = (int) session.getAttribute("count");
 					count2 = (int) session.getAttribute("count2");
-					
-					System.out.println("count: " + count + " ============");
-					System.out.println("================================================");
 					
 					if(count == count2){
 						session.setAttribute("count", 0);
@@ -133,27 +112,12 @@ public class JogoSequenciaResource{
 					result = "Errou";
 					session.setAttribute("count", 0);
 					session.setAttribute("count2", 0);
-					session.setAttribute("jogadas", "");
 			}	
 		
-			if(count == tamanho-1){
+			if(count == tamanho){
 				session.setAttribute("count", 0);
 				session.setAttribute("count2", 0);
-				return "Venceu";
-				
-			}else{
-				
-				count = (int) session.getAttribute("count");
-				count2 = (int) session.getAttribute("count2");
-				
-				System.out.println("\t Depois do IF");
-				System.out.println("count2: " + count2 + " ============");
-				System.out.println("count: " + count + " ============");
-				
-				System.out.println("proxima jogada:  " + jogo.getSequenciaDaVez(count, sequencia));
-				System.out.println("proxima jogada:  " + sequencia.get(count) + "\n");
-				System.out.println("/////////////////////////////////////");
-
+				return "Venceu";	
 			}
 				
 		} catch (NullPointerException e) {

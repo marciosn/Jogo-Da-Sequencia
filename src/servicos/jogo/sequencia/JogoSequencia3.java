@@ -24,42 +24,6 @@ public class JogoSequencia3 {
 		}
 		return sequenciaDavez;
 	}
-
-	
-	public boolean verificaJogada(List<Integer> jogadas, List<Integer> sequencia){
-		boolean isCorreta = false;
-		System.out.println("JOGADAS "+jogadas.toString());
-		System.out.println("SEQUENCIA "+sequencia.toString());
-		
-		try {
-			for(int k = 0 ; k < jogadas.size() ; k++){
-				System.out.println(jogadas.get(k) + " = " + sequencia.get(k));
-				if(jogadas.get(k) == sequencia.get(k)){
-					isCorreta = true;
-				}else
-					return false;
-			}
-
-		} catch (NullPointerException e) {
-			e.printStackTrace();
-		}
-		return isCorreta;
-	}
-	
-	public boolean verificaJogada(int jogadas, int seqIndice){
-		boolean isCorreta = false;
-		System.out.println("Jogada "+jogadas);
-		System.out.println("É esperado " + seqIndice);
-		try {
-			if(jogadas == seqIndice){
-					isCorreta = true;
-			}
-
-		} catch (NullPointerException e) {
-			e.printStackTrace();
-		}
-		return isCorreta;
-	}
 	
 	public boolean verificaJogada(String jogadas, int seqIndice){
 		boolean isCorreta = false;
