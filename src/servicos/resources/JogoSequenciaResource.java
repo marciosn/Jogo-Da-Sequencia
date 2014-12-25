@@ -41,12 +41,15 @@ public class JogoSequenciaResource{
 	@Path("/limpar")
 	public String limpaSesso(){
 		session = request.getSession(true);
-		try {
+		/*try {
 			session.setAttribute("jogadas", "");
 		} catch (NullPointerException e) {
 			System.out.println("Limpar " + e.toString());
-		}
-		return "Sessão Limpa";
+		}*/
+		
+		return jogo.limpaSesso(session, request);
+		
+		//return "Sessão Limpa";
 	}
 
 	@GET
@@ -54,12 +57,16 @@ public class JogoSequenciaResource{
 	@Produces("application/json")
 	public String criaSequencia(@PathParam("intervalo") int intervalo, @PathParam("tamanho") int tamanho){
 		session = request.getSession(true);
-		sequencia = jogo.geraSequenciaInteger(intervalo, tamanho);
+		
+		/*sequencia = jogo.geraSequenciaInteger(intervalo, tamanho);
 		session.setAttribute("lista", sequencia);
 		session.setAttribute("count", count);
 		session.setAttribute("count2", 1);
 		session.setAttribute("tamanho", tamanho);
-		return sequencia.toString();
+		
+		return sequencia.toString();*/
+		
+		return jogo.criaSequencia(session, request, intervalo, tamanho);
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -67,7 +74,8 @@ public class JogoSequenciaResource{
 	@Path("/jogar")
 	@Produces("text/plain")
 	public String pegarDica(){
-		String dica = "";
+		session = request.getSession(true);
+		/*String dica = "";
 		session = request.getSession(true);
 		sequencia = (List<Integer>) session.getAttribute("lista");
 		count = (int) session.getAttribute("count");
@@ -79,7 +87,9 @@ public class JogoSequenciaResource{
 			System.out.println("pegarDica " + e.toString());
 		}
 		
-		return dica;
+		return dica;*/
+		
+		return jogo.pegarDica(session, request);
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -88,7 +98,8 @@ public class JogoSequenciaResource{
 	@Produces("text/plain")
 	public String verificaJogada(@PathParam("jogada") String jogada){
 		session = request.getSession(true);
-		String result = "verifica";
+		return jogo.verificaJogada(session, request, jogada);
+		/*String result = "verifica";
 		try {
 			
 			tamanho = (int) session.getAttribute("tamanho");
@@ -126,7 +137,7 @@ public class JogoSequenciaResource{
 			System.out.println("verificaJogada "+e.toString());
 		}
 
-		return result;
+		return result;*/
 	}
 	
 }

@@ -50,7 +50,6 @@
 </body>
 
 <script type="text/javascript">
-var jogadas = [];
 $("#form2").hide();
 
 	$( document ).ready(function() {
@@ -79,8 +78,6 @@ $("#form2").hide();
 		 })
 
 	function valor(valor){
-		jogadas.push(valor);
-		console.log(jogadas.length);
 		document.querySelector("#jogado").innerHTML ="Você jogou: " + valor;
 		event.preventDefault();
 			$.ajax({
