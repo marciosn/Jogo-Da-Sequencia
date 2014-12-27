@@ -28,6 +28,7 @@ public class JogoSequenciaResource{
 	
 	@GET
 	@Path("/index")
+	@Produces("text/plain")
 	public String Index() throws IOException{
 		response.sendRedirect("/servicos/index.html"); 
 		return "index";
@@ -35,6 +36,7 @@ public class JogoSequenciaResource{
 	
 	@GET
 	@Path("/limpar")
+	@Produces("text/plain")
 	public String limpaSesso(){
 		session = request.getSession(true);		
 		return jogo.limpaSesso(session, request);

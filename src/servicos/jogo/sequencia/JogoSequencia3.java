@@ -152,7 +152,7 @@ public class JogoSequencia3 {
 		count = (int) session.getAttribute("count");
 		try {
 
-			dica = "Entrada esperada: " + getSequenciaDaVez(count, sequencia).toString();
+			dica = getSequenciaDaVez(count, sequencia).toString();
 			
 		} catch (IndexOutOfBoundsException e) {
 			System.out.println("pegarDica " + e.toString());
